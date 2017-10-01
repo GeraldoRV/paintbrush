@@ -5,9 +5,11 @@
  */
 package gui;
 
+import gui.trail.MouseTrail;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,10 +20,14 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    Graphics graphics;
+    MouseTrail trailing;
+    
     public MainWindow() {
         initComponents();
-        graphics = panel.getGraphics();
+        trailing = new MouseTrail(
+                panel, 
+                figure.getSelectedItem().toString()
+        );
     }
 
     /**
@@ -52,12 +58,18 @@ public class MainWindow extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Java Paint");
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(new javax.swing.border.MatteBorder(null));
         panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 panelMouseMoved(evt);
+            }
+        });
+        panel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                panelMouseExited(evt);
             }
         });
 
@@ -79,7 +91,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        paintBush.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Green", "Black", "Orange" }));
+        paintBush.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Black", "Green", "Orange" }));
         paintBush.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 paintBushItemStateChanged(evt);
@@ -87,6 +99,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         figure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circle", "Square", "Triangle" }));
+        figure.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                figureItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,7 +114,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(paintBush, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(backgroundColor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(figure, 0, 75, Short.MAX_VALUE))
+                    .addComponent(figure, 0, 0, Short.MAX_VALUE))
                 .addGap(25, 25, Short.MAX_VALUE)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -122,22 +139,29 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseMoved
-        // TODO add your handling code here:
-        //graphics.
-
+        try {
+            trailing.execTrail();
+        } catch (InterruptedException ex) {
+            trailing.refresh();
+            trailing.clearQueue();
+        }
     }//GEN-LAST:event_panelMouseMoved
 
     private void backgroundColorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_backgroundColorItemStateChanged
-        // TODO add your handling code here:
-        String color = backgroundColor.getSelectedItem().toString();
-        changeColorBackground(color);
+        changeColorBackground(backgroundColor.getSelectedItem().toString());
     }//GEN-LAST:event_backgroundColorItemStateChanged
 
     private void paintBushItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_paintBushItemStateChanged
-        // TODO add your handling code here:
-        String color = paintBush.getSelectedItem().toString();
-        changeColorPaintBrush(color);
+        changeColorPaintBrush(paintBush.getSelectedItem().toString());
     }//GEN-LAST:event_paintBushItemStateChanged
+
+    private void figureItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_figureItemStateChanged
+        changeFigure(figure.getSelectedItem().toString());
+    }//GEN-LAST:event_figureItemStateChanged
+
+    private void panelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseExited
+        trailing.refresh();
+    }//GEN-LAST:event_panelMouseExited
 
     /**
      * @param args the command line arguments
@@ -193,7 +217,6 @@ public class MainWindow extends javax.swing.JFrame {
             default:
                 panel.setBackground(Color.white);
         }
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -208,17 +231,20 @@ public class MainWindow extends javax.swing.JFrame {
     private void changeColorPaintBrush(String color) {
         switch (color) {
             case "Green":
-                graphics.setColor(Color.green);
+                trailing.setColor(Color.green);
                 break;
             case "Black":
-                graphics.setColor(Color.black);
+                trailing.setColor(Color.black);
                 break;
             case "Orange":
-                graphics.setColor(Color.orange);
+                trailing.setColor(Color.orange);
                 break;
             default:
         }
+    }
 
+    private void changeFigure(String shape) {
+        trailing.setShape(shape);
     }
 }
 // http://www.tutorialesprogramacionya.com/javaya/detalleconcepto.php?codigo=130&punto=&inicio=
