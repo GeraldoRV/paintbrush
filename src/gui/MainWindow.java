@@ -41,7 +41,7 @@ public class MainWindow extends javax.swing.JFrame {
         jOptionPane1 = new javax.swing.JOptionPane();
         panel = new javax.swing.JPanel();
         backgroundColor = new javax.swing.JComboBox<>();
-        paintBush = new javax.swing.JComboBox<>();
+        paintBrush = new javax.swing.JComboBox<>();
         figure = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,10 +93,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        paintBush.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Black", "Green", "Orange" }));
-        paintBush.addItemListener(new java.awt.event.ItemListener() {
+        paintBrush.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Black", "Green", "Orange" }));
+        paintBrush.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                paintBushItemStateChanged(evt);
+                paintBrushItemStateChanged(evt);
             }
         });
 
@@ -125,7 +125,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addContainerGap(18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(paintBush, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(paintBrush, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(backgroundColor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(figure, 0, 0, Short.MAX_VALUE))
                             .addComponent(jLabel2)
@@ -154,7 +154,7 @@ public class MainWindow extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addGap(3, 3, 3)
-                        .addComponent(paintBush, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(paintBrush, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,9 +179,9 @@ public class MainWindow extends javax.swing.JFrame {
         changeColorBackground(backgroundColor.getSelectedItem().toString());
     }//GEN-LAST:event_backgroundColorItemStateChanged
 
-    private void paintBushItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_paintBushItemStateChanged
-        changeColorPaintBrush(paintBush.getSelectedItem().toString());
-    }//GEN-LAST:event_paintBushItemStateChanged
+    private void paintBrushItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_paintBrushItemStateChanged
+        changeColorPaintBrush(paintBrush.getSelectedItem().toString());
+    }//GEN-LAST:event_paintBrushItemStateChanged
 
     private void figureItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_figureItemStateChanged
         changeFigure(figure.getSelectedItem().toString());
@@ -256,7 +256,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> paintBush;
+    private javax.swing.JComboBox<String> paintBrush;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 
